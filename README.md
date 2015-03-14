@@ -19,11 +19,19 @@ docker -d -p 80:80 -v [your www folder]:/var/www/html peihsinsu/apache2
 ## Using ab benchmark
 
 ```
-docker run -d peihsinsu/apache2-runtime [your-ab-commands]
+docker run -d peihsinsu/apache2 [your-ab-commands]
 ```
 
-example:
+example - run ab benchmark then exit
 
 ```
-docker run -d -v ~/data:/data peihsinsu/apache2-runtime ab -c 200 -n 50 -t 30 -g /data/out.dat http://your-ip-address/
+docker run -d -v ~/data:/data peihsinsu/apache2 ab -c 200 -n 50 -t 30 -g /data/out.dat http://your-ip-address/
+```
+
+example - run ab benchmark then plot
+
+```
+docker run -d -v /home/simonsu/data:/data \
+  peihsinsu/apache2 \
+  bash -c "cd /data && ab -c 50 -n 50 -g out.dat http://your-ip-address/ && gnuplot plot.p"
 ```
